@@ -1,0 +1,20 @@
+{
+  "parser": "@babel/eslint-parser",
+  "extends": "airbnb",
+  "env": {
+    "browser": true,
+    "node": true,
+    "jquery": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".es6", ".vue", ".sass", ".scss", ".json"]
+      }
+    }
+  },
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-new": "warn"
+  }
+}
