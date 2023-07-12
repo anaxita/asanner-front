@@ -1,6 +1,10 @@
 # asanner-front
 
-
+## Develop
+```sh
+yarn start       # for developing and   open  localhost:3000
+yarn build       # for build. creating folder "build"
+```
 
 ## Getting started
 

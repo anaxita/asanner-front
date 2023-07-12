@@ -3,7 +3,7 @@ import './index.pug';
 
 import axios from 'axios';
 
-const API_URL = 'https://083f-31-146-221-63.ngrok-free.app';
+const API_URL = 'http://localhost:9100';
 
 const queryString = window.location.search;
 
