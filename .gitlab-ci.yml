@@ -14,7 +14,7 @@ deploy-dev:
     - if: '$CI_COMMIT_BRANCH == "dev"'
   before_script:
     ### enable debug mode
-#    - set -xeuo pipefail
+    - set -xeuo pipefail
     ### install ssh client and copy private ssh key
     - apk add --update openssh-client bash
     - apk add --update curl bash
