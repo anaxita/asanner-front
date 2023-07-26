@@ -1,21 +1,12 @@
 image: curlimages/curl:8.2.1
 
-cache:
-  paths:
-    - node_modules/
+# TODO enable if you add another stage
+#cache:
+#  paths:
+#    - node_modules/
 
 stages:
   - deploy
-
-before_script:
-  - curl -X POST "https://api.telegram.org/$BOT_TOKEN/sendMessage" \
-    -d "chat_id=$CHAT_ID" \
-    -d "start deploy to $CI_COMMIT_BRANCH"
-
-after_script:
-  - curl -X POST "https://api.telegram.org/$BOT_TOKEN/sendMessage" \
-    -d "chat_id=$CHAT_ID" \
-    -d "deploy to $CI_COMMIT_BRANCH finished with status $CI_JOB_STATUS"
 
 deploy-dev:
   image: node:18.17.0-alpine3.17
@@ -23,19 +14,30 @@ deploy-dev:
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
   before_script:
+    ### enable debug mode
 #    - set -xeuo pipefail
+    ### install ssh client and copy private ssh key
     - apk add --update openssh-client bash
+    - apk add --update curl bash
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - touch ~/.ssh/known_hosts
     - ssh-keyscan 45.10.53.84 >> ~/.ssh/known_hosts
     - chmod 700 ~/.ssh
+    ### send message to telegram
+    - curl -X POST "https://api.telegram.org/$BOT_TOKEN/sendMessage" \
+      -d "chat_id=$CHAT_ID" \
+      -d "start deploy to $CI_COMMIT_BRANCH"
   script:
     - yarn install
     - yarn run build
     - ls -lah
     - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/dev-asanner
+  after_script:
+    - curl -X POST "https://api.telegram.org/$BOT_TOKEN/sendMessage" \
+      -d "chat_id=$CHAT_ID" \
+      -d "deploy to $CI_COMMIT_BRANCH finished with status $CI_JOB_STATUS"
 
 #deploy-prod:
 #  image: node:18.17.0-alpine3.17
