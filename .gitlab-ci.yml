@@ -1,0 +1,46 @@
+image: node:18.17.0-alpine3.17
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - deploy
+
+deploy-dev:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "dev"'
+  before_script:
+#    - set -xeuo pipefail
+    - apk add --update openssh-client bash
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - touch ~/.ssh/known_hosts
+    - ssh-keyscan 45.10.53.84 >> ~/.ssh/known_hosts
+    - chmod 700 ~/.ssh
+  script:
+    - yarn install
+    - yarn run build
+    - ls -lah
+    - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/dev-asanner
+
+#deploy-prod:
+#  stage: deploy
+#  rules:
+#    - if: '$CI_COMMIT_BRANCH == "main"'
+#  before_script:
+#    #    - set -xeuo pipefail
+#    - apk add --update openssh-client bash
+#    - eval $(ssh-agent -s)
+#    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#    - mkdir -p ~/.ssh
+#    - touch ~/.ssh/known_hosts
+#    - ssh-keyscan 45.10.53.84 >> ~/.ssh/known_hosts
+#    - chmod 700 ~/.ssh
+#  script:
+#    - yarn install
+#    - yarn run build
+#    - ls -lah
+#    - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/asanner
