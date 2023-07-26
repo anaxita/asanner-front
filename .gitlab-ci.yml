@@ -10,7 +10,7 @@ stages:
 deploy-dev:
   stage: deploy
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_COMMIT_BRANCH == "dev"'
   before_script:
 #    - set -xeuo pipefail
     - apk add --update openssh-client bash
@@ -29,7 +29,7 @@ deploy-dev:
 #deploy-prod:
 #  stage: deploy
 #  rules:
-#    - if: '$CI_COMMIT_BRANCH == "master"'
+#    - if: '$CI_COMMIT_BRANCH == "main"'
 #  before_script:
 #    #    - set -xeuo pipefail
 #    - apk add --update openssh-client bash
