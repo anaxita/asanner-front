@@ -14,7 +14,7 @@ deploy-dev:
     - if: '$CI_COMMIT_BRANCH == "dev"'
   before_script:
     ### enable debug mode
-    - set -xeuo pipefail
+#    - set -xeuo pipefail
     ### install ssh client and copy private ssh key
     - apk add --update openssh-client bash
     - apk add --update curl bash
@@ -29,8 +29,10 @@ deploy-dev:
   script:
     - yarn install
     - yarn run build
-    - ls -lah
     - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/dev-asanner
   after_script:
-    - if [$CI_JOB_STATUS == "success"]; then curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=✅deploy to $CI_COMMIT_BRANCH finished with status $CI_JOB_STATUS";
-        else curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=❌[deploy to $CI_COMMIT_BRANCH finished with status $CI_JOB_STATUS"]($CI_PIPELINE_URL); fi
+    - if [ "$CI_JOB_STATUS" == "success" ]; then
+      curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=✅deploy to $CI_COMMIT_BRANCH finished with status $CI_JOB_STATUS";
+      else
+      curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=❌[deploy to $CI_COMMIT_BRANCH finished with status $CI_JOB_STATUS]($CI_PIPELINE_URL)";
+      fi
