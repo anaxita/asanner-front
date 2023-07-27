@@ -4,6 +4,7 @@ export const MainLayot = () => {
   return (
     <div className="main bg-secondary bg-gradient text-white">
       <div className="container">
+          Main page
         <Outlet />
       </div>
     </div>
