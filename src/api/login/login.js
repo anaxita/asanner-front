@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getItemFromStore } from '../../utils/getItemFromStore';
 import { setItemToStore } from '../../utils/setItemToStore';
 
-const API_URL = 'http://localhost:8088';
+const API_URL = 'https://dev.api.asanner.anaxita.ru';
 
 const login = async (code) => {
   try {
@@ -13,10 +13,9 @@ const login = async (code) => {
 
     console.log('response: ', response);
 
-    const { access_token, refresh_token } = response.data;
+    const { access_token } = response.data;
 
     setItemToStore('accessToken', access_token);
-    setItemToStore('refreshToken', refresh_token);
   } catch (error) {
     console.error('Ошибка авторизации:', error);
   }
@@ -83,7 +82,6 @@ const decodeToken = (token) => {
 window.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
-  const accessToken = getItemFromStore('accessToken');
 
   if (code) {
     login(code);
