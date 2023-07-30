@@ -1,5 +1,5 @@
-.PHONY start:
-start:
+.PHONY up:
+up:
 	npm run dev
 
 .PHONY build:

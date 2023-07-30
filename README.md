@@ -1,11 +1,13 @@
 # Asanner
 
 ### Local start
+
 ```makefile
-make start
+make up
 ```
 
 ### Build
+
 ```makefile
 make build
 ```
