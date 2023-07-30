@@ -17,17 +17,17 @@ deploy-dev:
 #    - set -xeuo pipefail
     ### Set .env file
     - cp ${ENV_FILE} .env
-    ### send message to telegram
-    - apk add --update curl bash
-    - curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=🔄$CI_PROJECT_NAME deploying to $CI_COMMIT_BRANCH"
     ### install ssh client and copy private ssh key
     - apk add --update openssh-client bash
+    - apk add --update curl bash
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - touch ~/.ssh/known_hosts
     - ssh-keyscan 45.10.53.84 >> ~/.ssh/known_hosts
     - chmod 700 ~/.ssh
+    ### send message to telegram
+    - curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=🔄$CI_PROJECT_NAME deploying to $CI_COMMIT_BRANCH"
   script:
     - npm install
     - npm run build
