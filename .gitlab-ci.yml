@@ -27,8 +27,9 @@ deploy-dev:
     ### send message to telegram
     - curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=🔄$CI_PROJECT_NAME deploying to $CI_COMMIT_BRANCH"
   script:
-    - yarn install
-    - yarn run build
+    - npm install
+    - $ENV_FILE > .env
+    - npm run build
     - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/dev-asanner
   after_script:
     - if [ "$CI_JOB_STATUS" == "success" ]; then

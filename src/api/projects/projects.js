@@ -14,7 +14,7 @@ export const fetchProjects = async () => {
   try {
     addAccessTokenToHeaders();
 
-    const projects = await axios.post(`${API_URL}/projects`);
+    const projects = await axios.post(`${import.meta.env.VITE_API_URL}/projects`);
 
     console.log('projects: ', projects);
 
@@ -42,7 +42,7 @@ const fetchProject = async (gid) => {
   try {
     addAccessTokenToHeaders();
 
-    const project = await axios.get(`${API_URL}/project?project_id=${gid}`);
+    const project = await axios.get(`${import.meta.env.VITE_API_URL}/project?project_id=${gid}`);
 
     console.log('project: ', project.data);
   } catch (error) {
