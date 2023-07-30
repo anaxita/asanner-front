@@ -45,7 +45,7 @@ export const Project = () => {
         e.preventDefault();
 
         axios
-            .put(`${import.meta.env.VITE_API_URL}/projects/${id}`,
+            .post(`${import.meta.env.VITE_API_URL}/projects/${id}`,
                 {
                     task_prefix: project.task_prefix,
                     sync_enabled: project.sync_enabled,
