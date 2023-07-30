@@ -4,6 +4,7 @@ import {Alert, Badge, ButtonGroup, Card, Form} from "react-bootstrap";
 import {useParams} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {Header} from "./Header";
+import {makeHttpRequest} from "../api/make_http_request";
 
 export const Project = () => {
     const {id} = useParams();
@@ -46,29 +47,14 @@ export const Project = () => {
     const handleSyncButtonClick = (e) => {
         e.preventDefault();
 
-        axios
-            .put(`${import.meta.env.VITE_API_URL}/projects/${id}`,
-                {
-                    task_prefix: project.task_prefix,
-                    sync_enabled: project.sync_enabled,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("token")}`,
-                    },
-                })
-            .then((response) => {
-                const data = response.data;
-
-                // Check if the response contains an error
-                if (data.error) {
-                    setErr(data.error);
+        makeHttpRequest('PUT', `/projects/${id}`)
+            .then(r => {
+                const {data, err} = r;
+                if (err) {
+                    setErr(err);
                 } else {
                     setProject(data);
                 }
-            })
-            .catch((error) => {
-                setErr("Server is not available. Try again later.");
             })
             .finally(() => {
                 window.location.href = `/projects/${id}` // TODO я хуй знает как отключить обновление страницы после нажатия на кнопку, она тупо пропадает, пока сделал так.
@@ -79,11 +65,9 @@ export const Project = () => {
         window.location.href = "/projects";
     };
 
-
     if (err) {
         return <Alert variant="danger">{err}</Alert>;
     }
-
 
     return (
         <>

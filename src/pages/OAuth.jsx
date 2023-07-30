@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import jwtDecode from "jwt-decode";
 import {useSearchParams} from "react-router-dom";
 import {makeHttpRequest} from "../api/make_http_request";
+import {Spinner} from "react-bootstrap";
 
 // OAuth component that handles the OAuth flow with Asana and redirects to the projects page when complete
 export const OAuth = () => {
@@ -12,7 +13,7 @@ export const OAuth = () => {
     }
 
     useEffect(() => {
-        makeHttpRequest('POST',`/login?code=${code}`)
+        makeHttpRequest('POST', `/login?code=${code}`)
             .then(r => {
                 const {data, err} = r;
                 if (err) {
@@ -28,5 +29,10 @@ export const OAuth = () => {
 
     }, [code]);
 
-    return (<>Authenticating...</>);
+    return (
+        <Spinner animation="border" role="status">
+            <span className="visually-hidden">Авторизация...</span>
+            Авторизация...
+        </Spinner>
+    );
 };

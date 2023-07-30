@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {Table} from "react-bootstrap";
+import React, {useEffect, useState} from "react";
+import {Alert, Table} from "react-bootstrap";
 import {Header} from "./Header";
 import {PencilSquare} from "react-bootstrap-icons";
 import {makeHttpRequest} from "../api/make_http_request";
@@ -30,11 +30,14 @@ export const Projects = () => {
         </tr>);
     });
 
-    return (<>
-        <Header/>
-        <div>
-            {err && <p>Error: {err}</p>}
-            {projects.length > 0 ? (<div className="container">
+    if (err) {
+        return <Alert variant="danger">{err}</Alert>;
+    }
+
+    return (
+        <>
+            <Header/>
+            <div className="container">
                 <div className="vh-100 d-flex align-items-center flex-column">
                     <h1 className="projects__title title">Projects</h1>
                     <Table striped bordered hover className="text-center">
@@ -52,7 +55,6 @@ export const Projects = () => {
                         </tbody>
                     </Table>
                 </div>
-            </div>) : null}
-        </div>
-    </>);
+            </div>
+        </>);
 };
