@@ -47,7 +47,14 @@ export const Project = () => {
     const handleSyncButtonClick = (e) => {
         e.preventDefault();
 
-        makeHttpRequest('PUT', `/projects/${id}`)
+        makeHttpRequest(
+            'PUT',
+            `/projects/${id}`,
+            {
+                task_prefix: project.task_prefix,
+                sync_enabled: project.sync_enabled,
+            }
+        )
             .then(r => {
                 const {data, err} = r;
                 if (err) {
