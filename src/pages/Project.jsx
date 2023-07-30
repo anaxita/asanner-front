@@ -45,7 +45,7 @@ export const Project = () => {
         e.preventDefault();
 
         axios
-            .post(`${import.meta.env.VITE_API_URL}/projects/${id}`,
+            .put(`${import.meta.env.VITE_API_URL}/projects/${id}`,
                 {
                     task_prefix: project.task_prefix,
                     sync_enabled: project.sync_enabled,
@@ -67,9 +67,10 @@ export const Project = () => {
             })
             .catch((error) => {
                 setErr("Server is not available. Try again later.");
+            })
+            .finally(() => {
+                window.location.href = `/projects/${id}` // TODO я хуй знает как отключить обновление страницы после нажатия на кнопку, она тупо пропадает, пока сделал так.
             });
-
-        window.location.href = `/projects/${id}` // TODO я хуй знает как отключить обновление страницы после нажатия на кнопку, она тупо пропадает, пока сделал так.
     };
 
     const handleCancelButtonClick = () => {
@@ -105,8 +106,8 @@ export const Project = () => {
                             />
                         </li>
                     </ul>
-                    <Button variant="primary" onClick={handleSyncButtonClick}>Sync</Button>
-                    <Button variant="danger" onClick={handleCancelButtonClick}>Cancel</Button>
+                    <Button variant="primary" type="button" onClick={handleSyncButtonClick}>Sync</Button>
+                    <Button variant="danger" type="button" onClick={handleCancelButtonClick}>Cancel</Button>
                 </div>
             )}
         </div>
