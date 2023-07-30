@@ -11,7 +11,8 @@ import {Project} from "./pages/Project";
 export const App = () => {
     return (
         <Routes>
-            <Route path="/" element={<MainLayot/>}/>
+            {/*<Route path="/" element={<MainLayot/>}/>*/}
+            <Route path="/" element={<Login/>}/>
             <Route path="login" element={<Login/>}/>
             <Route path="oauth/callback" element={<OAuth/>}/>
             <Route path="projects" element={<Projects/>}/>

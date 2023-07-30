@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import axios from 'axios';
 import {useSearchParams} from "react-router-dom";
 
+// OAuth component that handles the OAuth flow with Asana and redirects to the projects page when complete
 export const OAuth = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const code = searchParams.get('code');

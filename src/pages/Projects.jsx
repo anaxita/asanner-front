@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
+import {Container, Navbar} from "react-bootstrap";
 
 export const Projects = () => {
     const [projects, setProjects] = useState([]);
@@ -40,19 +41,30 @@ export const Projects = () => {
     }
 
     return (
-        <div>
-            {err && <p>Error: {err}</p>}
-            {projects.length > 0 ? (
-                <div className="projects">
-                    <div className="vh-100 d-flex justify-content-center align-items-center flex-column">
-                        <h1 className="projects__title title">Projects</h1>
-                        <select name="projects" id="projects" className="form-select project-select" onChange={handleSelectChange}>
-                            <option value="value" className="project-select__option">Select project</option>
-                            {projectList}
-                        </select>
+        <>
+            <Navbar className="bg-body-tertiary mb-5">
+                <Container>
+                    <Navbar.Brand href="#home">Asanner</Navbar.Brand>
+                    <Navbar.Toggle/>
+                    <Navbar.Text>
+                        User01
+                    </Navbar.Text>
+                </Container>
+            </Navbar>
+            <div>
+                {err && <p>Error: {err}</p>}
+                {projects.length > 0 ? (
+                    <div className="projects">
+                        <div className="vh-100 d-flex justify-content-center align-items-center flex-column">
+                            <h1 className="projects__title title">Projects</h1>
+                            <select name="projects" id="projects" className="form-select project-select" onChange={handleSelectChange}>
+                                <option value="value" className="project-select__option">Select project</option>
+                                {projectList}
+                            </select>
+                        </div>
                     </div>
-                </div>
-            ) : null}
-        </div>
+                ) : null}
+            </div>
+        </>
     );
 };
