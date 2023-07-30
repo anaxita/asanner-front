@@ -7,7 +7,7 @@ const API_URL = 'https://dev.api.asanner.anaxita.ru';
 
 const login = async (code) => {
   try {
-    const response = await axios.post(`${API_URL}/login?code=${code}`, {
+    const response = await axios.post(`${import.meta.env.VITE_API_URL}/login?code=${code}`, {
       headers: { 'Access-Control-Allow-Origin': '*' },
     });
 
