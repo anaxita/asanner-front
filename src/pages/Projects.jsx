@@ -35,7 +35,7 @@ export const Projects = () => {
     }
 
     return (
-        <>
+        <div className="bg-light vh-100">
             <Header/>
             <div className="container">
                 <div className="vh-100 d-flex align-items-center flex-column">
@@ -56,5 +56,6 @@ export const Projects = () => {
                     </Table>
                 </div>
             </div>
-        </>);
+        </div>
+    )
 };

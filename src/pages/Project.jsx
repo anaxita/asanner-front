@@ -11,13 +11,7 @@ export const Project = () => {
 
     const [project, setProject] = useState({
         // Example project data
-        current_task_prefix_id: 0,
-        gid: "",
-        name: "",
-        state: "",
-        sync_enabled: false,
-        task_prefix: "",
-        user_id: "",
+        current_task_prefix_id: 0, gid: "", name: "", state: "", sync_enabled: false, task_prefix: "", user_id: "",
     });
 
     const [err, setErr] = useState("");
@@ -47,14 +41,9 @@ export const Project = () => {
     const handleSyncButtonClick = (e) => {
         e.preventDefault();
 
-        makeHttpRequest(
-            'PUT',
-            `/projects/${id}`,
-            {
-                task_prefix: project.task_prefix,
-                sync_enabled: project.sync_enabled,
-            }
-        )
+        makeHttpRequest('PUT', `/projects/${id}`, {
+            task_prefix: project.task_prefix, sync_enabled: project.sync_enabled,
+        })
             .then(r => {
                 const {data, err} = r;
                 if (err) {
@@ -76,8 +65,7 @@ export const Project = () => {
         return <Alert variant="danger">{err}</Alert>;
     }
 
-    return (
-        <>
+    return (<div className="bg-light vh-100">
             <Header/>
             <div className="d-flex justify-content-center">
                 <Card className="w-25">
@@ -86,9 +74,7 @@ export const Project = () => {
                         <Form.Label htmlFor="input_task_prefix">Префикс задачи</Form.Label>
                         <Form.Control
                             value={project.task_prefix}
-                            onChange={(e) =>
-                                setProject({...project, task_prefix: e.target.value})
-                            }
+                            onChange={(e) => setProject({...project, task_prefix: e.target.value})}
                             type="text"
                             placeholder="T- или например Task-"
                             id="input_task_prefix"
@@ -103,9 +89,7 @@ export const Project = () => {
                         <div className="mt-3 d-flex gap-2">
                             <Form.Check
                                 checked={project.sync_enabled}
-                                onChange={(e) =>
-                                    setProject({...project, sync_enabled: e.target.checked})
-                                }
+                                onChange={(e) => setProject({...project, sync_enabled: e.target.checked})}
                                 type="switch"
                                 label="Синрхонизировать автоматически"
                                 id="input_sync"
@@ -120,6 +104,5 @@ export const Project = () => {
                     </Card.Body>
                 </Card>
             </div>
-        </>
-    )
+        </div>)
 };
