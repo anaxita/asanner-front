@@ -1,29 +1,32 @@
 import React, {useEffect} from 'react';
-import axios from 'axios';
+import jwtDecode from "jwt-decode";
 import {useSearchParams} from "react-router-dom";
+import {makeHttpRequest} from "../api/make_http_request";
 
 // OAuth component that handles the OAuth flow with Asana and redirects to the projects page when complete
 export const OAuth = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const code = searchParams.get('code');
+    if (!code) {
+        window.location.href = '/login';
+    }
 
     useEffect(() => {
-        if (!code) {
-            window.location.href = '/login';
-        }
-
-        axios
-            .post(`${import.meta.env.VITE_API_URL}/login?code=${code}`, {})
-            .then((response) => {
-                const {access_token} = response.data;
-                localStorage.setItem('token', access_token);
-                window.location.href = '/projects';
-            })
-            .catch((error) => {
-                console.error('Error fetching access token:', error);
+        makeHttpRequest('POST',`/login?code=${code}`)
+            .then(r => {
+                const {data, err} = r;
+                if (err) {
+                    console.log(err)
+                } else {
+                    const {access_token} = data;
+                    localStorage.setItem('token', access_token);
+                    const decoded = jwtDecode(access_token);
+                    localStorage.setItem('user', JSON.stringify(decoded.user));
+                    window.location.href = '/projects';
+                }
             });
 
-    }, []);
+    }, [code]);
 
     return (<>Authenticating...</>);
 };

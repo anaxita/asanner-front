@@ -7,6 +7,7 @@ import {Login} from './pages/Login';
 import {Projects} from './pages/Projects';
 import {OAuth} from "./pages/OAuth";
 import {Project} from "./pages/Project";
+import {Header} from "./pages/Header";
 
 export const App = () => {
     return (

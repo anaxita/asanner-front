@@ -1,70 +1,58 @@
 import {useEffect, useState} from "react";
-import axios from "axios";
-import {Container, Navbar} from "react-bootstrap";
+import {Table} from "react-bootstrap";
+import {Header} from "./Header";
+import {PencilSquare} from "react-bootstrap-icons";
+import {makeHttpRequest} from "../api/make_http_request";
 
 export const Projects = () => {
     const [projects, setProjects] = useState([]);
     const [err, setErr] = useState("");
 
     useEffect(() => {
-        // Make HTTP request to example.com with the 'code' query parameter
-        axios
-            .get(`${import.meta.env.VITE_API_URL}/projects`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+        makeHttpRequest('GET', '/projects')
+            .then(r => {
+                const {data, err} = r;
+                if (err) {
+                    setErr(err);
+                } else {
+                    setProjects(data);
                 }
-            })
-            .then((response) => {
-                // Check if the response contains an error
-                if (response.data.error) {
-                    setErr(response.data.error);
-                    return;
-                }
-
-                setProjects(response.data);
-            })
-            .catch(error => {
-                setErr("Server is not available. Try again later.");
             });
-    }, []);
+    }, [projects, err]);
 
-    const projectList = projects.map(project => {
-        return (
-            <option value={project.gid} key={project.gid} className="project-select__option">
-                {project.name}
-            </option>
-        );
+    const projectList = projects.map((project, index) => {
+        return (<tr key={project.gid}>
+            <td>{index + 1}</td>
+            <td>{project.name}</td>
+            <td>{project.task_prefix}</td>
+            <td>{project.state}</td>
+            <td><a href={`/projects/${project.gid}`}><PencilSquare className="me-2"/>Редактировать</a></td>
+        </tr>);
     });
 
-    const handleSelectChange = (event) => {
-        window.location.href = `/projects/${event.target.value}`;
-    }
-
-    return (
-        <>
-            <Navbar className="bg-body-tertiary mb-5">
-                <Container>
-                    <Navbar.Brand href="#home">Asanner</Navbar.Brand>
-                    <Navbar.Toggle/>
-                    <Navbar.Text>
-                        User01
-                    </Navbar.Text>
-                </Container>
-            </Navbar>
-            <div>
-                {err && <p>Error: {err}</p>}
-                {projects.length > 0 ? (
-                    <div className="projects">
-                        <div className="vh-100 d-flex justify-content-center align-items-center flex-column">
-                            <h1 className="projects__title title">Projects</h1>
-                            <select name="projects" id="projects" className="form-select project-select" onChange={handleSelectChange}>
-                                <option value="value" className="project-select__option">Select project</option>
-                                {projectList}
-                            </select>
-                        </div>
-                    </div>
-                ) : null}
-            </div>
-        </>
-    );
+    return (<>
+        <Header/>
+        <div>
+            {err && <p>Error: {err}</p>}
+            {projects.length > 0 ? (<div className="container">
+                <div className="vh-100 d-flex align-items-center flex-column">
+                    <h1 className="projects__title title">Projects</h1>
+                    <Table striped bordered hover className="text-center">
+                        <thead>
+                        <tr>
+                            <th>№</th>
+                            <th>Название</th>
+                            <th>Префикс задач</th>
+                            <th>Статус</th>
+                            <th>Настройки</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {projectList}
+                        </tbody>
+                    </Table>
+                </div>
+            </div>) : null}
+        </div>
+    </>);
 };
