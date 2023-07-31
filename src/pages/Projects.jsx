@@ -1,12 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Alert, Table } from 'react-bootstrap';
 import { PencilSquare } from 'react-bootstrap-icons';
 
-import { fetchEventSource } from '@microsoft/fetch-event-source';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
 import { makeHttpRequest } from '../api/make_http_request';
 import { Header } from './Header';
+
+const fetchSse = (projects, setProjects) => {
+  const res = new EventSourcePolyfill(`${import.meta.env.VITE_API_URL}/sse`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    },
+  });
+
+  res.onmessage = function (e) {
+    const { project_id, project_state } = JSON.parse(e.data);
+    const updatedProjects = [...projects];
+
+    updatedProjects.forEach((project, i) => {
+      if (project.gid === project_id) {
+        project.state = project_state;
+
+        updatedProjects[i] = {
+          ...updatedProjects[i],
+          ...project,
+        };
+
+        setProjects(updatedProjects);
+      }
+    });
+  };
+};
 
 export const Projects = () => {
   const [projects, setProjects] = useState([]);
@@ -19,40 +44,9 @@ export const Projects = () => {
         setErr(err);
       } else {
         setProjects(data);
+        fetchSse(data, setProjects);
       }
     });
-
-    const res = new EventSourcePolyfill(`${import.meta.env.VITE_API_URL}/sse`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
-      },
-    });
-
-    // res.onerror =
-    //   res.onopen =
-    res.onmessage = function (e) {
-      console.log('e: ', e);
-      const { project_id, project_state } = JSON.parse(e.data);
-      const updatedProjects = [...projects];
-      console.log('updatedProjects: ', updatedProjects);
-
-      updatedProjects.forEach((project, i) => {
-        console.log('project.gid: ', project.gid);
-        console.log('project_id: ', project_id);
-
-        if (project.gid === project_id) {
-          console.log('project: ', project);
-          project.state = project_state;
-
-          updatedProjects[i] = {
-            ...updatedProjects[i],
-            ...project,
-          };
-
-          setProjects(updatedProjects);
-        }
-      });
-    };
   }, []);
 
   const projectList = projects.map((project, index) => {
