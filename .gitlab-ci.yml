@@ -6,7 +6,20 @@ image: node:18.17.0-alpine3.17
 #    - node_modules/
 
 stages:
+  - build
   - deploy
+
+build:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "dev"' # because dev branch is checked in deploy stage
+  before_script:
+    ### enable debug mode
+    #    - set -xeuo pipefail
+    - cp ${ENV_FILE} .env
+  script:
+    - npm install
+    - npm run build
 
 deploy-dev:
   stage: deploy
