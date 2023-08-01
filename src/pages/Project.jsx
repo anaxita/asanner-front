@@ -3,8 +3,6 @@ import { Alert, Badge, Card, Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import axios from 'axios';
-
 import { makeHttpRequest } from '../api/make_http_request';
 import { Header } from './Header';
 

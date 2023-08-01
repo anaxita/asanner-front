@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert, Button, Table } from 'react-bootstrap';
+import { Alert, Button, Spinner, Table } from 'react-bootstrap';
 import { ArrowClockwise, PencilSquare } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
 
@@ -37,6 +37,7 @@ const fetchSse = (projects, setProjects) => {
 export const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [err, setErr] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     makeHttpRequest('GET', '/projects').then((r) => {
@@ -51,14 +52,16 @@ export const Projects = () => {
   }, []);
 
   const refreshProjects = () => {
+    setIsLoading(true);
+
     makeHttpRequest('GET', '/projects/refresh').then((r) => {
       const { data, err } = r;
       if (err) {
         setErr(err);
       } else {
         setProjects(data);
-        fetchSse(data, setProjects);
       }
+      setIsLoading(false);
     });
   };
 
@@ -89,8 +92,14 @@ export const Projects = () => {
       <div className="container">
         <div className="vh-100 d-flex align-items-center flex-column">
           <h1 className="projects__title title">Projects</h1>
-          <Button className="mb-3 align-self-end" onClick={refreshProjects}>
-            <ArrowClockwise className="me-2" />
+          <Button disabled={isLoading} className="mb-3 align-self-end" onClick={refreshProjects}>
+            {isLoading ? (
+              <Spinner className="me-2" animation="border" size="sm">
+                <span className="visually-hidden">Обновление...</span>
+              </Spinner>
+            ) : (
+              <ArrowClockwise className="me-2" />
+            )}
             Обновить проекты
           </Button>
           <Table striped bordered hover className="text-center">
