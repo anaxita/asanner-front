@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Alert, Table } from 'react-bootstrap';
-import { PencilSquare } from 'react-bootstrap-icons';
+import { Alert, Button, Table } from 'react-bootstrap';
+import { ArrowClockwise, PencilSquare } from 'react-bootstrap-icons';
 
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
@@ -49,6 +49,18 @@ export const Projects = () => {
     });
   }, []);
 
+  const refreshProjects = () => {
+    makeHttpRequest('GET', '/projects/refresh').then((r) => {
+      const { data, err } = r;
+      if (err) {
+        setErr(err);
+      } else {
+        setProjects(data);
+        fetchSse(data, setProjects);
+      }
+    });
+  };
+
   const projectList = projects.map((project, index) => {
     return (
       <tr key={project.gid}>
@@ -76,6 +88,10 @@ export const Projects = () => {
       <div className="container">
         <div className="vh-100 d-flex align-items-center flex-column">
           <h1 className="projects__title title">Projects</h1>
+          <Button className="mb-3 align-self-end" onClick={refreshProjects}>
+            <ArrowClockwise className="me-2" />
+            Обновить проекты
+          </Button>
           <Table striped bordered hover className="text-center">
             <thead>
               <tr>
