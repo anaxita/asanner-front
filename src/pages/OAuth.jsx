@@ -33,7 +33,6 @@ export const OAuth = () => {
         <div className="bg-light vh-100">
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Авторизация...</span>
-                Авторизация...
             </Spinner>
         </div>
     );
