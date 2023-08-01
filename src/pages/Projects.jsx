@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Alert, Button, Table } from 'react-bootstrap';
 import { ArrowClockwise, PencilSquare } from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
 
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
@@ -69,10 +70,10 @@ export const Projects = () => {
         <td>{project.task_prefix}</td>
         <td>{project.state}</td>
         <td>
-          <a href={`/projects/${project.gid}`}>
+          <Link to={`/projects/${project.gid}`}>
             <PencilSquare className="me-2" />
             Редактировать
-          </a>
+          </Link>
         </td>
       </tr>
     );
