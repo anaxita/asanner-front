@@ -1,4 +1,5 @@
 import { Button, Container, Navbar } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
   const { email, is_premium } = JSON.parse(localStorage.getItem('user'));
@@ -8,9 +9,14 @@ export const Header = () => {
       <Container>
         <Navbar.Brand href="#home">Asanner</Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">
-          <Button className="me-3" variant={is_premium ? 'warning' : 'secondary'}>
-            {is_premium ? 'Премиум тариф' : 'Базовый тариф'}
-          </Button>
+          <Link className="btn btn-outline-primary  me-3" to="/projects">
+            Мои проекты
+          </Link>
+          <div className="me-3">
+            <Link to="/pricing" className={is_premium ? 'btn btn-warning' : 'btn btn-secondary'}>
+              {is_premium ? 'Премиум тариф' : 'Базовый тариф'}
+            </Link>
+          </div>
           <Navbar.Text>{email}</Navbar.Text>
         </Navbar.Collapse>
       </Container>
