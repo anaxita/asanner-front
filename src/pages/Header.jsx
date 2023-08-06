@@ -1,11 +1,11 @@
-import { Button, Container, Navbar } from 'react-bootstrap';
+import { Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const Header = () => {
   const { email, is_premium } = JSON.parse(localStorage.getItem('user'));
 
   return (
-    <Navbar className="ustify-content-between bg-body-tertiary mb-5">
+    <Navbar className="justify-content-between bg-body-tertiary">
       <Container>
         <Navbar.Brand href="#home">Asanner</Navbar.Brand>
         <Navbar.Collapse className="justify-content-end">

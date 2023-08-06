@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
 import { makeHttpRequest } from '../api/make_http_request';
-import { Header } from './Header';
 
 const fetchSse = (projects, setProjects) => {
   const res = new EventSourcePolyfill(`${import.meta.env.VITE_API_URL}/sse`, {
@@ -87,11 +86,10 @@ export const Projects = () => {
   }
 
   return (
-    <div className="bg-light vh-100">
-      <Header />
+    <div className="bg-light">
       <div className="container">
-        <div className="vh-100 d-flex align-items-center flex-column">
-          <h1 className="projects__title title">Projects</h1>
+        <div className="d-flex align-items-center flex-column">
+          <h1 className="title">Projects</h1>
           <Button disabled={isLoading} className="mb-3 align-self-end" onClick={refreshProjects}>
             {isLoading ? (
               <Spinner className="me-2" animation="border" size="sm">
