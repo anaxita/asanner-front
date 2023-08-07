@@ -6,6 +6,7 @@ import { MainLayot } from './layouts/MainLayot';
 import { Login } from './pages/Login';
 import { OAuth } from './pages/OAuth';
 import { Payment } from './pages/Payment';
+import { Policy } from './pages/Policy';
 import { Pricing } from './pages/Pricing';
 import { Project } from './pages/Project';
 import { Projects } from './pages/Projects';
@@ -25,6 +26,7 @@ export const App = () => {
         <Route path="payment" element={<Payment />} />
         <Route path="payments/success" element={<SuccessfulPayment />} />
         <Route path="payments/cancel" element={<UnsuccessfulPayment />} />
+        <Route path="policy" element={<Policy  />} />
       </Route>
     </Routes>
   );
