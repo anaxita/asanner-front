@@ -2,7 +2,7 @@ import { Container, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const Header = () => {
-  const { email, is_premium } = JSON.parse(localStorage.getItem('user'));
+  // const { email, is_premium } = JSON.parse(localStorage.getItem('user'));
 
   return (
     <Navbar className="justify-content-between bg-body-tertiary">
@@ -13,11 +13,11 @@ export const Header = () => {
             Мои проекты
           </Link>
           <div className="me-3">
-            <Link to="/pricing" className={is_premium ? 'btn btn-warning' : 'btn btn-secondary'}>
+            {/* <Link to="/pricing" className={is_premium ? 'btn btn-warning' : 'btn btn-secondary'}>
               {is_premium ? 'Премиум тариф' : 'Базовый тариф'}
-            </Link>
+            </Link> */}
           </div>
-          <Navbar.Text>{email}</Navbar.Text>
+          {/* <Navbar.Text>{email}</Navbar.Text> */}
         </Navbar.Collapse>
       </Container>
     </Navbar>

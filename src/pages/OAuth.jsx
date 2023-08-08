@@ -23,8 +23,8 @@ export const OAuth = () => {
       } else {
         const { access_token } = data;
         localStorage.setItem('token', access_token);
-        const decoded = jwtDecode(access_token);
-        localStorage.setItem('user', JSON.stringify(decoded.user));
+        // const decoded = jwtDecode(access_token);
+        // localStorage.setItem('user', JSON.stringify(decoded.user));
         navigate('/projects');
       }
     });

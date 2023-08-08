@@ -1,7 +1,7 @@
 import { Button, Card, ListGroup } from 'react-bootstrap';
 
 export const Pricing = () => {
-  const { is_premium } = JSON.parse(localStorage.getItem('user'));
+  // const { is_premium } = JSON.parse(localStorage.getItem('user'));
 
   return (
     <>
@@ -16,9 +16,9 @@ export const Pricing = () => {
                 <ListGroup.Item as="li">Преимущество 2</ListGroup.Item>
                 <ListGroup.Item as="li">Преимущество 3</ListGroup.Item>
               </ListGroup>
-              <Button disabled={!is_premium} variant="secondary">
+              {/* <Button disabled={!is_premium} variant="secondary">
                 {is_premium ? 'Перейти' : 'Текущий'}
-              </Button>
+              </Button> */}
             </Card.Body>
           </Card>
           <Card className="text-center" style={{ width: '18rem' }}>
@@ -30,9 +30,9 @@ export const Pricing = () => {
                 <ListGroup.Item as="li">Преимущество 3</ListGroup.Item>
               </ListGroup>
 
-              <Button href="/payment" disabled={is_premium} variant="warning">
+              {/* <Button href="/payment" disabled={is_premium} variant="warning">
                 {is_premium ? 'Текущий' : 'Перейти'}
-              </Button>
+              </Button> */}
             </Card.Body>
           </Card>
         </div>
