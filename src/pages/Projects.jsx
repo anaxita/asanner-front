@@ -48,15 +48,6 @@ export const Projects = () => {
         fetchSse(data, setProjects);
       }
     });
-
-    makeHttpRequest('GET', '/profile').then((r) => {
-      const { data, err } = r;
-      if (err) {
-        setErr(err);
-      } else {
-        localStorage.setItem('profile', JSON.stringify(data));
-      }
-    });
   }, []);
 
   const refreshProjects = () => {
