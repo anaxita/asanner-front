@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
-import { makeHttpRequest } from '../api/make_http_request';
+import { makeHttpRequest } from '../api/makeHttpRequest';
 
 const fetchSse = (projects, setProjects) => {
   const res = new EventSourcePolyfill(`${import.meta.env.VITE_API_URL}/sse`, {
@@ -46,6 +46,15 @@ export const Projects = () => {
       } else {
         setProjects(data);
         fetchSse(data, setProjects);
+      }
+    });
+
+    makeHttpRequest('GET', '/profile').then((r) => {
+      const { data, err } = r;
+      if (err) {
+        setErr(err);
+      } else {
+        localStorage.setItem('profile', JSON.stringify(data));
       }
     });
   }, []);

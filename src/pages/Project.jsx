@@ -3,7 +3,7 @@ import { Alert, Badge, Card, Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { makeHttpRequest } from '../api/make_http_request';
+import { makeHttpRequest } from '../api/makeHttpRequest';
 
 export const Project = () => {
   const { id } = useParams();

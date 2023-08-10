@@ -1,6 +1,6 @@
 import { Card } from 'react-bootstrap';
 
-import { makeHttpRequest } from '../api/make_http_request';
+import { makeHttpRequest } from '../api/makeHttpRequest';
 
 const postPayment = (uri) => {
   makeHttpRequest('POST', `${uri}`).then((r) => {

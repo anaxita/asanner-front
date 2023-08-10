@@ -2,9 +2,7 @@ import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import jwtDecode from 'jwt-decode';
-
-import { makeHttpRequest } from '../api/make_http_request';
+import { makeHttpRequest } from '../api/makeHttpRequest';
 
 // OAuth component that handles the OAuth flow with Asana and redirects to the projects page when complete
 export const OAuth = () => {
@@ -23,8 +21,6 @@ export const OAuth = () => {
       } else {
         const { access_token } = data;
         localStorage.setItem('token', access_token);
-        // const decoded = jwtDecode(access_token);
-        // localStorage.setItem('user', JSON.stringify(decoded.user));
         navigate('/projects');
       }
     });
