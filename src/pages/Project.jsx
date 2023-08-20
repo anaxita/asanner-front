@@ -1,13 +1,14 @@
+import { makeHttpRequest } from '../api/makeHttpRequest';
 import { useEffect, useState } from 'react';
 import { Alert, Badge, Card, Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { makeHttpRequest } from '../api/makeHttpRequest';
-
 export const Project = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const profile = JSON.parse(localStorage.getItem('profile'));
 
   const [project, setProject] = useState({
     // Example project data
@@ -63,7 +64,7 @@ export const Project = () => {
 
   return (
     <div className="d-flex justify-content-center">
-      <Card className="w-25">
+      <Card className=" col-xs-12">
         <Card.Header as="h5">{project.name}</Card.Header>
         <Card.Body>
           <Form.Label htmlFor="input_task_prefix">Префикс задачи</Form.Label>
@@ -80,18 +81,19 @@ export const Project = () => {
             {project.task_prefix ? `"${project.task_prefix}21 Отправить отчёт"` : '"Отправить отчёт"'}
           </Form.Text>
 
-          <div className="mt-3 d-flex gap-2">
+          <div className="mt-3 d-flex gap-2 align-items-center flex-wrap">
             <Form.Check
               checked={project.sync_enabled}
               onChange={(e) => setProject({ ...project, sync_enabled: e.target.checked })}
               type="switch"
               label="Синрхонизировать автоматически"
               id="input_sync"
+              disabled={profile.subscription.name === 'Basic' ? true : false}
             />
-            <Badge bg="primary">премиум</Badge>
+            {profile.subscription.name === 'Basic' && <Badge bg="primary">премиум</Badge>}
           </div>
 
-          <div className="mt-5 d-flex justify-content-around">
+          <div className="mt-5 gap-3 d-flex justify-content-between flex-wrap">
             <Button variant="success" type="button" onClick={handleSyncButtonClick}>
               Синхронизировать
             </Button>
