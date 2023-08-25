@@ -17,50 +17,20 @@ build:
     paths:
       - dist/
 
-dev-2-deploy:
-  stage: deploy
-  needs:
-    - job: build
-      artifacts: true
-  when: manual
-  environment: dev-2
-  before_script:
-    ### enable debug mode
-    #    - set -xeuo pipefail
-    ### send message to telegram
-    - apk add --update curl bash
-    - curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=🔄$CI_PROJECT_NAME - branch $CI_COMMIT_BRANCH is deploying to dev-2"
-    ### Set .env file
-    - cp ${ENV_FILE} .env
-    ### install ssh client and copy private ssh key
-    - apk add --update openssh-client bash
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - touch ~/.ssh/known_hosts
-    - ssh-keyscan 45.10.53.84 >> ~/.ssh/known_hosts
-    - chmod 700 ~/.ssh
-  script:
-#    - npm install
-#    - npm run build
-    - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/dev-2-asanner
-  after_script:
-    - if [ "$CI_JOB_STATUS" == "success" ]; then
-      curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=✅$CI_PROJECT_NAME - branch $CI_COMMIT_BRANCH has been deployed to dev-2";
-      else
-      curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=❌$CI_PROJECT_NAME - branch $CI_COMMIT_BRANCH deploy to dev-2 failed\n$CI_PIPELINE_URL";
-      fi
-
 deploy-dev:
   stage: deploy
+  needs:
+      - job: build
+        artifacts: true
   rules:
     - if: '$CI_COMMIT_BRANCH == "dev"'
+  environment: dev
   before_script:
     ### enable debug mode
 #    - set -xeuo pipefail
     ### send message to telegram
     - apk add --update curl bash
-    - curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=🔄$CI_PROJECT_NAME - branch $CI_COMMIT_BRANCH is deploying to dev"
+    - curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=🔄[$CI_PROJECT_NAME][$CI_ENVIRONMENT_NAME] is deploying branch $CI_COMMIT_BRANCH"
     ### Set .env file
     - cp ${ENV_FILE} .env
     ### install ssh client and copy private ssh key
@@ -77,7 +47,7 @@ deploy-dev:
     - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/dev-asanner
   after_script:
     - if [ "$CI_JOB_STATUS" == "success" ]; then
-      curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=✅$CI_PROJECT_NAME - branch $CI_COMMIT_BRANCH has been deployed to dev";
+      curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=✅[$CI_PROJECT_NAME][$CI_ENVIRONMENT_NAME] - deploying to $CI_COMMIT_BRANCH finished with status $CI_JOB_STATUS";
       else
-      curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=❌$CI_PROJECT_NAME - branch $CI_COMMIT_BRANCH deploy to dev failed\n$CI_PIPELINE_URL";
+      curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=❌[$CI_PROJECT_NAME][$CI_ENVIRONMENT_NAME] - deploying to $CI_COMMIT_BRANCH finished with status $CI_JOB_STATUS $CI_PIPELINE_URL";
       fi
