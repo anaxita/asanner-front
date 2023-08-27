@@ -1,8 +1,8 @@
-import { makeHttpRequest } from '../api/makeHttpRequest';
 import { useEffect, useState } from 'react';
-import { Alert, Badge, Card, Form } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
+import { Alert, Badge, Button, Card, Form } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { makeHttpRequest } from '../api/makeHttpRequest';
 
 export const Project = () => {
   const { id } = useParams();
@@ -65,7 +65,9 @@ export const Project = () => {
   return (
     <div className="d-flex justify-content-center">
       <Card className=" col-xs-12">
-        <Card.Header as="h5">{project.name}</Card.Header>
+        <Card.Header as="h5">
+          {project.name} ({ProjectStateFromAPI(project.state)})
+        </Card.Header>
         <Card.Body>
           <Form.Label htmlFor="input_task_prefix">Префикс задачи</Form.Label>
           <Form.Control
@@ -88,7 +90,7 @@ export const Project = () => {
               type="switch"
               label="Синрхонизировать автоматически"
               id="input_sync"
-              disabled={profile.subscription.name === 'Basic' ? true : false}
+              disabled={profile.subscription.name === 'Basic'}
             />
             {profile.subscription.name === 'Basic' && <Badge bg="primary">премиум</Badge>}
           </div>

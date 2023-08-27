@@ -70,7 +70,7 @@ export const Projects = () => {
         <td>{index + 1}</td>
         <td>{project.name}</td>
         <td>{project.task_prefix}</td>
-        <td>{project.state}</td>
+        <td>{ProjectStateFromAPI(project.state)}</td>
         <td>
           <Link to={`/projects/${project.gid}`}>
             <PencilSquare className="me-2" />
