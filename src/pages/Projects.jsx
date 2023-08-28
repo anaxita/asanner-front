@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
 import { makeHttpRequest } from '../api/makeHttpRequest';
+import { ProjectStateFromAPI } from '../utils/mappers';
 
 const fetchSse = (projects, setProjects) => {
   const res = new EventSourcePolyfill(`${import.meta.env.VITE_API_URL}/sse`, {
@@ -40,9 +41,9 @@ export const Projects = () => {
 
   useEffect(() => {
     makeHttpRequest('GET', '/projects').then((r) => {
-      const { data, err } = r;
-      if (err) {
-        setErr(err);
+      const { data, error } = r;
+      if (error) {
+        setErr(error);
       } else {
         setProjects(data);
         fetchSse(data, setProjects);
@@ -54,9 +55,9 @@ export const Projects = () => {
     setIsLoading(true);
 
     makeHttpRequest('GET', '/projects/refresh').then((r) => {
-      const { data, err } = r;
-      if (err) {
-        setErr(err);
+      const { data, error } = r;
+      if (error) {
+        setErr(error);
       } else {
         setProjects(data);
       }

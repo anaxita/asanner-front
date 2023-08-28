@@ -1,4 +1,4 @@
-function ProjectStateFromAPI(state) {
+export const  ProjectStateFromAPI = (state) => {
   switch (state) {
     case 'sync_not_started':
       return 'Синхронизация не началась';

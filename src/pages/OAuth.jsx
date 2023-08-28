@@ -15,9 +15,9 @@ export const OAuth = () => {
 
   useEffect(() => {
     makeHttpRequest('POST', `/login?code=${code}`).then((r) => {
-      const { data, err } = r;
-      if (err) {
-        console.log(err);
+      const { data, error } = r;
+      if (error) {
+        console.log(error);
       } else {
         const { access_token } = data;
         localStorage.setItem('token', access_token);

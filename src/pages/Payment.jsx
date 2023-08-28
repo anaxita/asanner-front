@@ -4,9 +4,9 @@ import { makeHttpRequest } from '../api/makeHttpRequest';
 
 const postPayment = (uri) => {
   makeHttpRequest('POST', `${uri}`).then((r) => {
-    const { data, err } = r;
-    if (err) {
-      console.log(err);
+    const { data, error } = r;
+    if (error) {
+      console.log(error);
     } else {
       console.log('data: ', data);
     }

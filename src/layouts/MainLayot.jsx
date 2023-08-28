@@ -8,9 +8,10 @@ import { Header } from '../pages/Header';
 export const MainLayot = () => {
   useEffect(() => {
     makeHttpRequest('GET', '/profile').then((r) => {
-      const { data, err } = r;
-      if (err) {
-        console.log(err);
+      const { data, error } = r;
+
+      if (error) {
+        console.log(error);
       } else {
         localStorage.setItem('profile', JSON.stringify(data));
       }
