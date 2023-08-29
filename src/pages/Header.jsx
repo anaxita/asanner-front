@@ -45,7 +45,7 @@ export const Header = () => {
     <Navbar className="justify-content-between bg-body-tertiary">
       <Container>
         <Navbar.Brand href="/projects">Asanner</Navbar.Brand>
-        {profileState && (
+        {profileState ? (
           <Navbar.Collapse className="justify-content-end">
             <Link className="btn btn-outline-primary  me-3" to="/projects">
               Мои проекты
@@ -73,8 +73,7 @@ export const Header = () => {
               </Dropdown.Menu>
             </Dropdown>
           </Navbar.Collapse>
-        )}
-        {!profileState && (
+        ) : (
           <a href={import.meta.env.VITE_ASANA_LOGIN_URL} className="btn btn-primary btn-lg">
             Login with Asana
           </a>
