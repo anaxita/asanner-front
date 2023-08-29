@@ -1,9 +1,28 @@
+import { useEffect } from 'react';
 import { Container, Dropdown, Navbar } from 'react-bootstrap';
-import { CashStack, List } from 'react-bootstrap-icons';
+import { List, StarFill } from 'react-bootstrap-icons';
 import { Link, useNavigate } from 'react-router-dom';
+
+import { makeHttpRequest } from '../api/makeHttpRequest';
 
 export const Header = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    makeHttpRequest('GET', '/profile').then((r) => {
+      const { data, error, status } = r;
+
+      if (status === 401) {
+        navigate('/login');
+      }
+
+      if (error) {
+        console.log(error);
+      } else {
+        localStorage.setItem('profile', JSON.stringify(data));
+      }
+    });
+  }, []);
 
   const profile = localStorage.getItem('profile');
 
@@ -34,7 +53,7 @@ export const Header = () => {
             </div>
             <div className="me-3">
               <Link to="/pricing" className={subscription?.name === 'Basic' ? 'btn btn-secondary ' : 'btn btn-warning'}>
-                <CashStack size={24} />
+                <StarFill color="#fff" size={24} />
                 {/* {subscription.name === 'Basic' ? 'Базовый тариф ' : 'Премиум тариф'} */}
               </Link>
             </div>

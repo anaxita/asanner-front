@@ -19,9 +19,9 @@ export const makeHttpRequest = async (method, uri, payload = null) => {
     }
 
     if (response.ok) {
-      return { data: responseData, error: null };
+      return { data: responseData, error: null, status: response.status };
     } else {
-      return { data: null, error: responseData.error || 'Something went wrong.' };
+      return { data: null, error: responseData.error || 'Something went wrong.', status: response.status };
     }
   } catch (error) {
     console.log('error: ', error);
