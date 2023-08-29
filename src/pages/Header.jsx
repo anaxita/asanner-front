@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Dropdown, Navbar } from 'react-bootstrap';
 import { List, StarFill } from 'react-bootstrap-icons';
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,6 +7,8 @@ import { makeHttpRequest } from '../api/makeHttpRequest';
 
 export const Header = () => {
   const navigate = useNavigate();
+
+  const [profileState, setProfileState] = useState();
 
   useEffect(() => {
     makeHttpRequest('GET', '/profile').then((r) => {
@@ -20,6 +22,7 @@ export const Header = () => {
         console.log(error);
       } else {
         localStorage.setItem('profile', JSON.stringify(data));
+        setProfileState(data);
       }
     });
   }, []);
@@ -30,6 +33,7 @@ export const Header = () => {
   let subscription;
 
   profile ? ({ email, subscription } = JSON.parse(profile)) : '';
+  profileState ? ({ email, subscription } = profileState) : '';
 
   const logOut = () => {
     localStorage.removeItem('token');
@@ -41,7 +45,7 @@ export const Header = () => {
     <Navbar className="justify-content-between bg-body-tertiary">
       <Container>
         <Navbar.Brand href="/projects">Asanner</Navbar.Brand>
-        {profile && (
+        {profileState && (
           <Navbar.Collapse className="justify-content-end">
             <Link className="btn btn-outline-primary  me-3" to="/projects">
               Мои проекты
@@ -70,7 +74,7 @@ export const Header = () => {
             </Dropdown>
           </Navbar.Collapse>
         )}
-        {!profile && (
+        {!profileState && (
           <a href={import.meta.env.VITE_ASANA_LOGIN_URL} className="btn btn-primary btn-lg">
             Login with Asana
           </a>
