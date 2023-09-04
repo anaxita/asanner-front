@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Alert, Badge, Button, Card, Form } from 'react-bootstrap';
+import { Alert, Badge, Button, Card, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { makeHttpRequest } from '../api/makeHttpRequest';
@@ -88,6 +89,9 @@ export const Project = () => {
                 disabled={profile.subscription.name === 'Basic'}
               />
               {profile.subscription.name === 'Basic' && <Badge bg="primary">премиум</Badge>}
+              <OverlayTrigger placement="top" overlay={<Tooltip>Подсказка автоматической синхронизации</Tooltip>}>
+                <QuestionCircle size={20} />
+              </OverlayTrigger>
             </div>
 
             <div className="mt-5 gap-3 d-flex justify-content-between flex-wrap">

@@ -74,9 +74,16 @@ export const Header = () => {
             </Dropdown>
           </Navbar.Collapse>
         ) : (
-          <a href={import.meta.env.VITE_ASANA_LOGIN_URL} className="btn btn-primary btn-lg">
-            Login with Asana
-          </a>
+          <Navbar.Collapse className="justify-content-end">
+            <div className="me-3">
+              <Link to="/pricing" className="btn btn-outline-secondary">
+                Тарифные планы
+              </Link>
+            </div>
+            <a href={import.meta.env.VITE_ASANA_LOGIN_URL} className="btn btn-primary">
+              Login with Asana
+            </a>
+          </Navbar.Collapse>
         )}
       </Container>
     </Navbar>
