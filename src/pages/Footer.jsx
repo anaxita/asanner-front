@@ -13,6 +13,7 @@ export const Footer = () => {
       <Link to="mailto:support@anaxita.ru" className="text-decoration-none text-dark-emphasis">
         support@anaxita.ru
       </Link>
+      <p>Костюченко Александр Дмитриевич. ИНН 232020805114</p>
     </div>
   );
 };
