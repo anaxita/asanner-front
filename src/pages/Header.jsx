@@ -19,7 +19,7 @@ export const Header = () => {
   };
 
   return (
-    <Navbar className="justify-content-between bg-body-tertiary">
+    <Navbar className="justify-content-between bg-body-tertiary border-bottom">
       <Container>
         <Navbar.Brand href="/projects">Asanner</Navbar.Brand>
         {profile ? (

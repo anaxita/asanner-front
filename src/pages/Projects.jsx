@@ -101,7 +101,7 @@ export const Projects = () => {
             )}
             Обновить проекты
           </Button>
-          <Table striped bordered hover className="text-center">
+          <Table striped bordered hover className="text-center align-middle">
             <thead>
               <tr>
                 <th>№</th>
