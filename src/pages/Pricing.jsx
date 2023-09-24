@@ -9,17 +9,17 @@ export const Pricing = () => {
   const profile = localStorage.getItem('profile');
   if (profile) {
     const { subscription } = JSON.parse(profile);
-    subID = subscription?.subscription_id;
+    subID = subscription?.id;
   }
 
-  const { plans, setPlans } = useState([]);
+  const [plans, setPlans] = useState([]);
 
   useEffect(() => {
     makeHttpRequest('GET', '/subscriptions').then((response) => {
-      const { data, err } = response;
+      const { data, error } = response;
 
-      if (err) {
-        console.log('get subscriptions:', err);
+      if (error) {
+        console.log('get subscriptions:', error);
         // TODO handle error
       }
 
@@ -33,15 +33,24 @@ export const Pricing = () => {
   if (plans) {
     planCards = plans.map((plan) => {
       return (
-        <Card className="text-center" style={{ width: '18rem' }}>
-          <Card.Body>
-            <Card.Title>{plan.name}</Card.Title>
+        <Card key={plan.id} className="text-center" style={{ width: '25rem' }}>
+          <Card.Body className="d-flex flex-column justify-content-between">
+            <Card.Title>
+              <h3 className="mb-0">{plan.name}</h3>
+              <h6 className="fw-bold">
+                {plan.price === 0 ? 'Бесплатно' : `${plan.price} руб./ ${plan.duration_month} месяцев`}
+              </h6>
+            </Card.Title>
             <ListGroup className="mb-2">
-              {plan.opportunities.map((v) => {
-                return <ListGroup.Item>{v}</ListGroup.Item>;
+              {plan.opportunities.map((v, i) => {
+                return <ListGroup.Item key={i}>{v}</ListGroup.Item>;
               })}
             </ListGroup>
-            <Button disabled={subID === plan.id} variant="secondary">
+            <Button
+              href={!profile ? '/login' : '/payment'}
+              disabled={subID === plan.id}
+              variant={subID === plan.id ? 'secondary' : 'warning'}
+            >
               {subID === plan.id ? 'Текущий' : 'Перейти'}
             </Button>
           </Card.Body>

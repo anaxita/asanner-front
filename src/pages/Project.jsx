@@ -86,9 +86,9 @@ export const Project = () => {
                 type="switch"
                 label="Синрхонизировать автоматически"
                 id="input_sync"
-                disabled={profile.subscription.name === 'Basic'}
+                disabled={profile.subscription.price === 0}
               />
-              {profile.subscription.name === 'Basic' && <Badge bg="primary">премиум</Badge>}
+              {profile.subscription.price === 0 && <Badge bg="primary">премиум</Badge>}
               <OverlayTrigger placement="top" overlay={<Tooltip>Подсказка автоматической синхронизации</Tooltip>}>
                 <QuestionCircle size={20} />
               </OverlayTrigger>

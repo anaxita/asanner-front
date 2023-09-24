@@ -33,9 +33,8 @@ export const Header = () => {
               </Link>
             </div>
             <div className="me-3">
-              <Link to="/pricing" className={subscription?.name === 'Basic' ? 'btn btn-secondary ' : 'btn btn-warning'}>
+              <Link to="/pricing" className={subscription?.price === 0 ? 'btn btn-secondary ' : 'btn btn-warning'}>
                 <StarFill color="#fff" size={24} />
-                {/* {subscription.name === 'Basic' ? 'Базовый тариф ' : 'Премиум тариф'} */}
               </Link>
             </div>
             <Dropdown drop="start">

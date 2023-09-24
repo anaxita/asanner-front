@@ -73,7 +73,7 @@ export const Projects = () => {
         <td>{project.task_prefix}</td>
         <td>{ProjectStateFromAPI(project.state)}</td>
         <td>
-          <Link to={`/projects/${project.gid}`}>
+          <Link to={`/projects/${project.gid}`} className="btn btn-sm btn-outline-dark">
             <PencilSquare className="me-2" />
             Настроить
           </Link>

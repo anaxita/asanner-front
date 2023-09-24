@@ -11,24 +11,24 @@ export const Login = () => {
       <Header />
       <div className="login vh-100 vw-100 d-flex justify-content-center align-items-center flex-column align-items-center">
         <h1 className="text-white">Assaner</h1>
-        <p className="text-white fs-4">Some text to describe the application</p>
+        <p className="text-white fs-4">Добавьте вашим задачам понятный ID</p>
         <div className="d-flex gap-3 justify-content-center">
           <Card className="mb-2 col-5">
             <Card.Header>
-              <CheckCircle /> Task title
+              <CheckCircle /> Отправить отчёт
             </Card.Header>
             <Card.Body>
-              <Card.Text>Some task description.</Card.Text>
+              <Card.Text>На почту в экселе.</Card.Text>
               <PersonCircle size={24} className="me-3" />
               <Calendar2 size={24} />
             </Card.Body>
           </Card>
           <Card className="mb-2 col-5">
             <Card.Header>
-              <CheckCircle /> T-3 Task title
+              <CheckCircle /> <b>T-3</b> Отправить отчёт
             </Card.Header>
             <Card.Body>
-              <Card.Text>Some task description.</Card.Text>
+              <Card.Text>На почту в экселе.</Card.Text>
               <PersonCircle size={24} className="me-3" />
               <Calendar2 size={24} />
             </Card.Body>
