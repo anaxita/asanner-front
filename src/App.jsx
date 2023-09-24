@@ -13,6 +13,7 @@ import { Pricing } from './pages/Pricing';
 import { Project } from './pages/Project';
 import { Projects } from './pages/Projects';
 import { SuccessfulPayment } from './pages/SuccessfulPayment';
+import { Terms } from './pages/Terms';
 import { UnsuccessfulPayment } from './pages/UnsuccessfulPayment';
 
 export const App = () => {
@@ -74,14 +75,8 @@ export const App = () => {
             </RequireAuth>
           }
         />
-        <Route
-          path="policy"
-          element={
-            <RequireAuth>
-              <Policy />
-            </RequireAuth>
-          }
-        />
+        <Route path="policy" element={<Policy />} />
+        <Route path="terms" element={<Terms />} />
       </Route>
     </Routes>
   );
