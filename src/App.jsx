@@ -10,6 +10,7 @@ import { OAuth } from './pages/OAuth';
 import { Payment } from './pages/Payment';
 import { Policy } from './pages/Policy';
 import { Pricing } from './pages/Pricing';
+import { PricingPreview } from './pages/PricingPreview';
 import { Project } from './pages/Project';
 import { Projects } from './pages/Projects';
 import { SuccessfulPayment } from './pages/SuccessfulPayment';
@@ -32,6 +33,7 @@ export const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="oauth/callback" element={<OAuth />} />
       <Route path="" element={<Login />} />
+      <Route path="/pricing-preview" element={<PricingPreview />} />
       <Route path="/" element={<MainLayot />}>
         <Route
           path="projects"

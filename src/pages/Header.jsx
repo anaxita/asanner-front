@@ -14,9 +14,9 @@ export const Header = () => {
     makeHttpRequest('GET', '/profile').then((r) => {
       const { data, error, status } = r;
 
-      if (status === 401) {
-        navigate('/login');
-      }
+      // if (status === 401) {
+      //   navigate('/login');
+      // }
 
       if (error) {
         console.log(error);
@@ -76,7 +76,7 @@ export const Header = () => {
         ) : (
           <Navbar.Collapse className="justify-content-end">
             <div className="me-3">
-              <Link to="/pricing" className="btn btn-outline-secondary">
+              <Link to="/pricing-preview" className="btn btn-outline-secondary">
                 Тарифные планы
               </Link>
             </div>
