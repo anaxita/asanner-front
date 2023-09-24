@@ -75,7 +75,7 @@ export const Projects = () => {
         <td>
           <Link to={`/projects/${project.gid}`}>
             <PencilSquare className="me-2" />
-            Редактировать
+            Настроить
           </Link>
         </td>
       </tr>
@@ -105,9 +105,9 @@ export const Projects = () => {
             <thead>
               <tr>
                 <th>№</th>
-                <th>Название</th>
+                <th>Проект</th>
                 <th>Префикс задач</th>
-                <th>Статус</th>
+                <th>Статус синхронизации</th>
                 <th>Настройки</th>
               </tr>
             </thead>

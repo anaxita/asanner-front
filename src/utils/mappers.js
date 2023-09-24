@@ -1,14 +1,14 @@
-export const  ProjectStateFromAPI = (state) => {
+export const ProjectStateFromAPI = (state) => {
   switch (state) {
     case 'sync_not_started':
-      return 'Синхронизация не началась';
+      return '-';
     case 'sync_in_progress':
-      return 'Идет синхронизация';
+      return 'Синхронизируется';
     case 'synced_ok':
-      return 'Синхронизировано успешно';
+      return 'Синхронизировано';
     case 'sync_error':
-      return 'Ошибка синхронизации';
+      return 'Ошибка';
     default:
       return 'Неизвестное состояние';
   }
-}
+};
