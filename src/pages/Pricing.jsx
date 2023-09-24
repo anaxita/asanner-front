@@ -4,16 +4,21 @@ import { Button, Card, ListGroup } from 'react-bootstrap';
 import { makeHttpRequest } from '../api/makeHttpRequest';
 
 export const Pricing = () => {
-  const { subscription } = JSON.parse(localStorage.getItem('profile'));
+  const profile = localStorage.getItem('profile');
+  let subID = '';
+  if (profile) {
+    const { subscription } = JSON.parse(profile);
+    subID = subscription?.subscription_id;
+  }
 
   const { plans, setPlans } = useState([]);
 
   useEffect(() => {
-    makeHttpRequest('GET', '/plans').then((response) => {
+    makeHttpRequest('GET', '/subscriptions').then((response) => {
       const { data, err } = response;
 
       if (err) {
-        console.log('/plans error', err);
+        console.log('get subscriptions:', err);
         // TODO handle error
       }
 
@@ -29,12 +34,12 @@ export const Pricing = () => {
         <Card.Body>
           <Card.Title>{plan.name}</Card.Title>
           <ListGroup className="mb-2">
-            {plan.oppotunities.map((v) => {
+            {plan.opportunities.map((v) => {
               return <ListGroup.Item>{v}</ListGroup.Item>;
             })}
           </ListGroup>
-          <Button disabled={subscription?.subscription_id === plan.id} variant="secondary">
-            {subscription?.subscription_id === plan.id ? 'Текущий' : 'Перейти'}
+          <Button disabled={subID === plan.id} variant="secondary">
+            {subID === plan.id ? 'Текущий' : 'Перейти'}
           </Button>
         </Card.Body>
       </Card>
