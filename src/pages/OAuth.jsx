@@ -21,6 +21,7 @@ export const OAuth = () => {
       } else {
         const { access_token } = data;
         localStorage.setItem('token', access_token);
+        localStorage.setItem('profile', JSON.stringify(data.user));
         navigate('/projects');
       }
     });
