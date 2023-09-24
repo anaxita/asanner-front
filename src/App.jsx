@@ -32,7 +32,6 @@ export const App = () => {
       <Route path="/login" element={<Login />} />
       <Route path="oauth/callback" element={<OAuth />} />
       <Route path="" element={<Login />} />
-      <Route path="/pricing-preview" element={<Pricing />} />
       <Route path="/" element={<MainLayot />}>
         <Route
           path="projects"
@@ -50,14 +49,7 @@ export const App = () => {
             </RequireAuth>
           }
         />
-        <Route
-          path="pricing"
-          element={
-            <RequireAuth>
-              <Pricing />
-            </RequireAuth>
-          }
-        />
+        <Route path="pricing" element={<Pricing />} />
         <Route
           path="payment"
           element={

@@ -4,8 +4,9 @@ import { Button, Card, ListGroup } from 'react-bootstrap';
 import { makeHttpRequest } from '../api/makeHttpRequest';
 
 export const Pricing = () => {
-  const profile = localStorage.getItem('profile');
   let subID = '';
+
+  const profile = localStorage.getItem('profile');
   if (profile) {
     const { subscription } = JSON.parse(profile);
     subID = subscription?.subscription_id;
