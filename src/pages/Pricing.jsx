@@ -28,23 +28,26 @@ export const Pricing = () => {
     });
   }, []);
 
-  const planCards = plans.map((plan) => {
-    return (
-      <Card className="text-center" style={{ width: '18rem' }}>
-        <Card.Body>
-          <Card.Title>{plan.name}</Card.Title>
-          <ListGroup className="mb-2">
-            {plan.opportunities.map((v) => {
-              return <ListGroup.Item>{v}</ListGroup.Item>;
-            })}
-          </ListGroup>
-          <Button disabled={subID === plan.id} variant="secondary">
-            {subID === plan.id ? 'Текущий' : 'Перейти'}
-          </Button>
-        </Card.Body>
-      </Card>
-    );
-  });
+  let planCards = [];
+  if (plans) {
+    planCards = plans.map((plan) => {
+      return (
+        <Card className="text-center" style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Title>{plan.name}</Card.Title>
+            <ListGroup className="mb-2">
+              {plan.opportunities.map((v) => {
+                return <ListGroup.Item>{v}</ListGroup.Item>;
+              })}
+            </ListGroup>
+            <Button disabled={subID === plan.id} variant="secondary">
+              {subID === plan.id ? 'Текущий' : 'Перейти'}
+            </Button>
+          </Card.Body>
+        </Card>
+      );
+    });
+  }
 
   return (
     <>
