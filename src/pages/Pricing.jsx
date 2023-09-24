@@ -41,7 +41,7 @@ export const Pricing = () => {
                 {plan.price === 0 ? 'Бесплатно' : `${plan.price} руб./ ${plan.duration_month} месяцев`}
               </h6>
             </Card.Title>
-            <ListGroup className="mb-2">
+            <ListGroup className="mb-2 text-start">
               {plan.opportunities.map((v, i) => {
                 return <ListGroup.Item key={i}>{v}</ListGroup.Item>;
               })}
