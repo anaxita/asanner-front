@@ -35,7 +35,7 @@ export const Pricing = () => {
       return (
         <Card key={plan.id} className="text-center" style={{ width: '25rem' }}>
           <Card.Body className="d-flex flex-column justify-content-between">
-            <Card.Title>
+            <Card.Title className="mb-0">
               <h3 className="mb-0">{plan.name}</h3>
               <h6 className="fw-bold">
                 {plan.price === 0 ? 'Бесплатно' : `${plan.price} руб./ ${plan.duration_month} месяцев`}
@@ -51,7 +51,13 @@ export const Pricing = () => {
               disabled={subID === plan.id}
               variant={subID === plan.id ? 'secondary' : 'warning'}
             >
-              {subID === plan.id ? 'Текущий' : 'Перейти'}
+              {!profile
+                ? 'Перейти'
+                : subID === plan.id
+                ? 'Текущий'
+                : !profile.is_trial_used
+                ? '7 дней бесплатно'
+                : 'Перейти'}
             </Button>
           </Card.Body>
         </Card>
