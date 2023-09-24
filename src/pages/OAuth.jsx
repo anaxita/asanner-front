@@ -19,9 +19,9 @@ export const OAuth = () => {
       if (error) {
         console.log(error);
       } else {
-        const { access_token } = data;
+        const { access_token, user } = data;
         localStorage.setItem('token', access_token);
-        localStorage.setItem('profile', JSON.stringify(data.user));
+        localStorage.setItem('profile', JSON.stringify(user));
         navigate('/projects');
       }
     });

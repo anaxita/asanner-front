@@ -1,31 +1,9 @@
-import { useEffect, useState } from 'react';
 import { Container, Dropdown, Navbar } from 'react-bootstrap';
 import { List, StarFill } from 'react-bootstrap-icons';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { makeHttpRequest } from '../api/makeHttpRequest';
-
 export const Header = () => {
   const navigate = useNavigate();
-
-  const [profileState, setProfileState] = useState();
-
-  useEffect(() => {
-    makeHttpRequest('GET', '/profile').then((r) => {
-      const { data, error, status } = r;
-
-      // if (status === 401) {
-      //   navigate('/login');
-      // }
-
-      if (error) {
-        console.log(error);
-      } else {
-        localStorage.setItem('profile', JSON.stringify(data));
-        setProfileState(data);
-      }
-    });
-  }, []);
 
   const profile = localStorage.getItem('profile');
 
@@ -33,7 +11,6 @@ export const Header = () => {
   let subscription;
 
   profile ? ({ email, subscription } = JSON.parse(profile)) : '';
-  profileState ? ({ email, subscription } = profileState) : '';
 
   const logOut = () => {
     localStorage.removeItem('token');
@@ -45,7 +22,7 @@ export const Header = () => {
     <Navbar className="justify-content-between bg-body-tertiary">
       <Container>
         <Navbar.Brand href="/projects">Asanner</Navbar.Brand>
-        {profileState ? (
+        {profile ? (
           <Navbar.Collapse className="justify-content-end">
             <Link className="btn btn-outline-primary  me-3" to="/projects">
               Мои проекты
@@ -76,7 +53,7 @@ export const Header = () => {
         ) : (
           <Navbar.Collapse className="justify-content-end">
             <div className="me-3">
-              <Link to="/pricing-preview" className="btn btn-outline-secondary">
+              <Link to="/pricing" className="btn btn-outline-secondary">
                 Тарифные планы
               </Link>
             </div>
