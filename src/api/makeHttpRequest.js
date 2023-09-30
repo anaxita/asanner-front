@@ -1,12 +1,6 @@
 export const makeHttpRequest = async (method, uri, payload = null) => {
   const accessToken = localStorage.getItem('access_token');
 
-  if (!accessToken) {
-    localStorage.clear();
-    window.location.href = '/login';
-    return;
-  }
-
   try {
     const options = {
       method: method.toUpperCase(),
