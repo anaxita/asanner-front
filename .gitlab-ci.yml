@@ -23,12 +23,12 @@ deploy-dev:
   stage: deploy
   needs:
     - job: build-dev
-        artifacts: true
+      artifacts: true
   only: [ dev ]
   environment: dev
   before_script:
     ### enable debug mode
-#    - set -xeuo pipefail
+    #    - set -xeuo pipefail
     ### send message to telegram
     - apk add --update curl bash
     - curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=🔄[$CI_PROJECT_NAME][$CI_ENVIRONMENT_NAME] is deploying branch $CI_COMMIT_BRANCH"
