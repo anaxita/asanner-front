@@ -14,8 +14,7 @@ export const Header = () => {
   profile ? ({ email, name, picture } = JSON.parse(profile)) : '';
 
   const logOut = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('profile');
+    localStorage.clear()
     navigate('/login');
   };
 

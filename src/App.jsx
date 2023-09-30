@@ -21,7 +21,7 @@ export const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('access_token');
 
     if (token && (location.pathname === '/login' || location.pathname === '/')) {
       navigate('/projects', { replace: true });
