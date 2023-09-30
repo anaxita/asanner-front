@@ -94,7 +94,7 @@ deploy-prod:
   script:
     - npm install
     - npm run build
-    - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/asanner
+    - scp -P $SSH_PORT -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -r dist/ $SSH_USER@$SSH_HOST:/www/prod-asanner
   after_script:
     - if [ "$CI_JOB_STATUS" == "success" ]; then
       curl -X POST "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" -d "chat_id=$CHAT_ID" -d "text=✅[$CI_PROJECT_NAME][$CI_ENVIRONMENT_NAME][$GITLAB_USER_LOGIN] deploy $CI_COMMIT_BRANCH $CI_JOB_STATUS";
