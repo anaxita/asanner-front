@@ -1,10 +1,18 @@
 export const makeHttpRequest = async (method, uri, payload = null) => {
+  const accessToken = localStorage.getItem('access_token');
+
+  if (!accessToken) {
+    localStorage.clear();
+    window.location.href = '/login';
+    return;
+  }
+
   try {
     const options = {
       method: method.toUpperCase(),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       body: payload ? JSON.stringify(payload) : null,
     };
@@ -23,7 +31,9 @@ export const makeHttpRequest = async (method, uri, payload = null) => {
       });
 
       if (!refreshResponse.ok) {
-        location.href = '/login';
+        localStorage.clear();
+        window.location.href = '/login';
+        return;
       }
       const responseData = await response.json();
       localStorage.setItem('refresh_token', responseData.refresh_token);

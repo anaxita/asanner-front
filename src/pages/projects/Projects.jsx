@@ -13,7 +13,7 @@ import './projects.css';
 const fetchSse = (projects, setProjects) => {
   const res = new EventSourcePolyfill(`${import.meta.env.VITE_API_URL}/sse`, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem('access_token')}`,
     },
   });
 
