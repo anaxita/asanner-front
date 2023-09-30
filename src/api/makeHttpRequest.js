@@ -12,6 +12,27 @@ export const makeHttpRequest = async (method, uri, payload = null) => {
     let responseData;
     const response = await fetch(import.meta.env.VITE_API_URL + uri, options);
 
+    console.log('response.status: ', response.status);
+    if (response.status === 401) {
+      const refreshResponse = await fetch(import.meta.env.VITE_API_URL + '/refresh', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ refresh_token: localStorage.getItem('refresh_token') }),
+      });
+
+      if (!refreshResponse.ok) {
+        location.href = '/login';
+      }
+      const responseData = await response.json();
+      localStorage.setItem('refresh_token', responseData.refresh_token);
+      localStorage.setItem('access_token', responseData.access_token);
+
+      console.log('retry', method, uri);
+      return makeHttpRequest(method, uri, payload);
+    }
+
     if (response.headers.get('Content-Type') === 'application/json') {
       responseData = await response.json();
     } else {

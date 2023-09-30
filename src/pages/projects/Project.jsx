@@ -60,9 +60,9 @@ export const Project = () => {
     <>
       {err && <Alert variant="danger">{err}</Alert>}
       <div className="d-flex justify-content-center">
-        <Card className=" col-xs-12">
+        <Card className="col-xs-12" bg="secondary" text="light">
           <Card.Header as="h5">
-            {project.name} ({ProjectStateFromAPI(project.state)})
+            {project.name} {ProjectStateFromAPI(project.state) ? `(${ProjectStateFromAPI(project.state)})` : ''}
           </Card.Header>
           <Card.Body>
             <Form.Label htmlFor="input_task_prefix">Префикс задачи</Form.Label>
@@ -74,7 +74,7 @@ export const Project = () => {
               id="input_task_prefix"
               aria-describedby="task prefixed text"
             />
-            <Form.Text id="input_task_prefix_help" muted>
+            <Form.Text id="input_task_prefix_help" className="text-light">
               Пример задачи с текущим префиксом:{' '}
               {project.task_prefix ? `"${project.task_prefix}21 Отправить отчёт"` : '"Отправить отчёт"'}
             </Form.Text>
@@ -86,9 +86,9 @@ export const Project = () => {
                 type="switch"
                 label="Синрхонизировать автоматически"
                 id="input_sync"
-                disabled={profile.subscription.price === 0}
+                // disabled={profile.subscription.price === 0}
               />
-              {profile.subscription.price === 0 && <Badge bg="primary">премиум</Badge>}
+              {/* {profile.subscription.price === 0 && <Badge bg="primary">премиум</Badge>} */}
               <OverlayTrigger placement="top" overlay={<Tooltip>Подсказка автоматической синхронизации</Tooltip>}>
                 <QuestionCircle size={20} />
               </OverlayTrigger>
