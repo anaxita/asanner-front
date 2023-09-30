@@ -39,11 +39,7 @@ export const Header = () => {
               </Link>
             </div> */}
             <Dropdown drop="start">
-              <Dropdown.Toggle
-                bsPrefix="p-0"
-                variant="light"
-                style={{ border: 'unset !important', backgroundColor: 'unset !important' }}
-              >
+              <Dropdown.Toggle bsPrefix="p-0" variant="dark" className="bg-transparent border-0">
                 {picture ? (
                   <img
                     src={picture}
@@ -56,7 +52,7 @@ export const Header = () => {
                 )}
               </Dropdown.Toggle>
 
-              <Dropdown.Menu>
+              <Dropdown.Menu variant='dark'>
                 <Dropdown.Item>{name ? name : email}</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={logOut}>Выйти</Dropdown.Item>
