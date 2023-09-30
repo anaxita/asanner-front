@@ -1,0 +1,13 @@
+.table tr th,
+.table tr td {
+  background-color: #353b41 !important;
+  color: #fff;
+}
+
+.form-control {
+  background-color: #353b41 !important;
+  color: #fff !important;
+}
+.form-control::placeholder {
+  color: #fff;
+}
