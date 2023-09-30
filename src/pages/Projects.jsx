@@ -38,6 +38,8 @@ export const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [err, setErr] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState('');
+  const [searchProjects, setSearchProjects] = useState([]);
 
   useEffect(() => {
     makeHttpRequest('GET', '/projects').then((r) => {
@@ -46,6 +48,7 @@ export const Projects = () => {
         setErr(error);
       } else {
         setProjects(data);
+        setSearchProjects(data);
         fetchSse(data, setProjects);
       }
     });
@@ -65,7 +68,19 @@ export const Projects = () => {
     });
   };
 
-  const projectList = projects.map((project, index) => {
+  const searchHandler = (event) => {
+    setSearchValue(event.target.value);
+    if (!event.target.value) {
+      setSearchProjects(projects);
+    } else {
+      const fiteredProjects = projects.filter((project) => {
+        return project.name.toLowerCase().includes(event.target.value.toLowerCase());
+      });
+      setSearchProjects(fiteredProjects);
+    }
+  };
+
+  const projectList = searchProjects.map((project, index) => {
     return (
       <tr key={project.gid}>
         <td>{index + 1}</td>
@@ -90,17 +105,28 @@ export const Projects = () => {
     <div className="bg-light">
       <div className="container">
         <div className="d-flex align-items-center flex-column">
-          <h1 className="title">Projects</h1>
-          <Button disabled={isLoading} className="mb-3 align-self-end" onClick={refreshProjects}>
-            {isLoading ? (
-              <Spinner className="me-2" animation="border" size="sm">
-                <span className="visually-hidden">Обновление...</span>
-              </Spinner>
-            ) : (
-              <ArrowClockwise className="me-2" />
-            )}
-            Обновить проекты
-          </Button>
+          <h1 className="title">Проекты</h1>
+          <div className="d-flex justify-content-between w-100 gap-3  mb-3 mt-3">
+            <div className="input-group w-25">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Поиск проектов"
+                value={searchValue}
+                onChange={searchHandler}
+              />
+            </div>
+            <Button disabled={isLoading} className="" onClick={refreshProjects}>
+              {isLoading ? (
+                <Spinner className="me-2" animation="border" size="sm">
+                  <span className="visually-hidden">Обновление...</span>
+                </Spinner>
+              ) : (
+                <ArrowClockwise className="me-2" />
+              )}
+              Обновить проекты
+            </Button>
+          </div>
           <Table striped bordered hover className="text-center align-middle">
             <thead>
               <tr>

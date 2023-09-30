@@ -36,7 +36,7 @@ export const Login = () => {
         </div>
 
         <a href={import.meta.env.VITE_ASANA_LOGIN_URL} className="btn btn-primary btn-lg text-center">
-          Login with Asana
+          Войти через Asana
         </a>
       </div>
     </>
