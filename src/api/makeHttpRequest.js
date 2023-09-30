@@ -29,7 +29,7 @@ export const makeHttpRequest = async (method, uri, payload = null) => {
         window.location.href = '/login';
         return;
       }
-      const responseData = await response.json();
+      const responseData = await refreshResponse.json();
       localStorage.setItem('refresh_token', responseData.refresh_token);
       localStorage.setItem('access_token', responseData.access_token);
 
