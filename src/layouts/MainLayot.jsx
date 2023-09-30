@@ -5,7 +5,7 @@ import { Header } from '../pages/Header';
 
 export const MainLayot = () => {
   return (
-    <div className="main bg-light">
+    <div className="main">
       <div className="container vh-100 d-flex justify-content-between flex-column">
         <Header />
         <Outlet />

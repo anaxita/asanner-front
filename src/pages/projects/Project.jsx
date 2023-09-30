@@ -3,8 +3,8 @@ import { Alert, Badge, Button, Card, Form, OverlayTrigger, Tooltip } from 'react
 import { QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { makeHttpRequest } from '../api/makeHttpRequest';
-import { ProjectStateFromAPI } from '../utils/mappers';
+import { makeHttpRequest } from '../../api/makeHttpRequest';
+import { ProjectStateFromAPI } from '../../utils/mappers';
 
 export const Project = () => {
   const { id } = useParams();

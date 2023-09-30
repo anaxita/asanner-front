@@ -5,8 +5,10 @@ import { Link } from 'react-router-dom';
 
 import { EventSourcePolyfill } from 'event-source-polyfill';
 
-import { makeHttpRequest } from '../api/makeHttpRequest';
-import { ProjectStateFromAPI } from '../utils/mappers';
+import { makeHttpRequest } from '../../api/makeHttpRequest';
+import { ProjectStateFromAPI } from '../../utils/mappers';
+import '../index.css';
+import './projects.css';
 
 const fetchSse = (projects, setProjects) => {
   const res = new EventSourcePolyfill(`${import.meta.env.VITE_API_URL}/sse`, {
@@ -102,7 +104,7 @@ export const Projects = () => {
   }
 
   return (
-    <div className="bg-light">
+    <div className="">
       <div className="container">
         <div className="d-flex align-items-center flex-column">
           <h1 className="title">Проекты</h1>
@@ -116,7 +118,7 @@ export const Projects = () => {
                 onChange={searchHandler}
               />
             </div>
-            <Button disabled={isLoading} className="" onClick={refreshProjects}>
+            <Button disabled={isLoading} className="" variant="outline-warning" onClick={refreshProjects}>
               {isLoading ? (
                 <Spinner className="me-2" animation="border" size="sm">
                   <span className="visually-hidden">Обновление...</span>
@@ -127,18 +129,20 @@ export const Projects = () => {
               Обновить проекты
             </Button>
           </div>
-          <Table striped bordered hover className="text-center align-middle">
-            <thead>
-              <tr>
-                <th>№</th>
-                <th>Проект</th>
-                <th>Префикс задач</th>
-                <th>Статус синхронизации</th>
-                <th>Настройки</th>
-              </tr>
-            </thead>
-            <tbody>{projectList}</tbody>
-          </Table>
+          <div className="rounded-4 w-100">
+            <Table striped bordered hover className="text-center align-middle border-secondary ">
+              <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Проект</th>
+                  <th>Префикс задач</th>
+                  <th>Статус синхронизации</th>
+                  <th>Настройки</th>
+                </tr>
+              </thead>
+              <tbody>{projectList}</tbody>
+            </Table>
+          </div>
         </div>
       </div>
     </div>

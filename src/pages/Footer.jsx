@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import './index.css';
+
 export const Footer = () => {
   return (
     <div className="pb-4 pt-2 d-flex justify-content-between align-items-center border-top">
