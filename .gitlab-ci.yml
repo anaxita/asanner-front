@@ -7,7 +7,7 @@ stages:
 build-dev:
   stage: build
   environment: dev
-  except: [ master ]
+  except: [ main ]
   before_script:
     ### enable debug mode
     #    - set -xeuo pipefail
@@ -55,7 +55,7 @@ deploy-dev:
 
 build-prod:
   stage: build
-  only: [ master ]
+  only: [ main ]
   environment: prod
   before_script:
     ### enable debug mode
@@ -70,7 +70,7 @@ build-prod:
 
 deploy-prod:
   stage: deploy
-  only: [ master ]
+  only: [ main ]
   needs:
     - job: build-prod
       artifacts: true
