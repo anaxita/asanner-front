@@ -13,6 +13,7 @@ import { Pricing } from './pages/Pricing';
 import { Project } from './pages/projects/Project';
 import { Projects } from './pages/projects/Projects';
 import { SuccessfulPayment } from './pages/SuccessfulPayment';
+import { Support } from './pages/Support';
 import { Terms } from './pages/Terms';
 import { UnsuccessfulPayment } from './pages/UnsuccessfulPayment';
 
@@ -77,6 +78,7 @@ export const App = () => {
         />
         <Route path="policy" element={<Policy />} />
         <Route path="terms" element={<Terms />} />
+        <Route path="support" element={<Support />} />
       </Route>
     </Routes>
   );

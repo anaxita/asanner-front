@@ -14,10 +14,10 @@ export const Footer = () => {
         </Link>
       </div>
       <div className="d-flex flex-column">
-        <Link to="mailto:sales@anaxita.ru" className="text-decoration-none text-dark-emphasis ">
+        <Link to="mailto:sales@anaxita.ru" className="text-decoration-none ">
           sales@anaxita.ru
         </Link>
-        <Link to="mailto:support@anaxita.ru" className="text-decoration-none text-dark-emphasis">
+        <Link to="mailto:support@anaxita.ru" className="text-decoration-none">
           support@anaxita.ru
         </Link>
       </div>
