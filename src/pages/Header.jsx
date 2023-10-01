@@ -14,7 +14,7 @@ export const Header = () => {
   profile ? ({ email, name, picture } = JSON.parse(profile)) : '';
 
   const logOut = () => {
-    localStorage.clear()
+    localStorage.clear();
     navigate('/login');
   };
 
@@ -24,8 +24,11 @@ export const Header = () => {
         <Navbar.Brand href="/projects">Asanner</Navbar.Brand>
         {profile ? (
           <Navbar.Collapse className="justify-content-end">
-            <Link className="btn btn-outline-primary " to="/projects">
+            <Link className="btn btn-outline-primary me-3" to="/projects">
               Мои проекты
+            </Link>
+            <Link className="btn btn-outline-warning " to="/support">
+              Поддержка
             </Link>
             <div className="me-3">
               {/* <Link  to="/pricing" className="btn btn-outline-secondary">
@@ -51,7 +54,7 @@ export const Header = () => {
                 )}
               </Dropdown.Toggle>
 
-              <Dropdown.Menu variant='dark'>
+              <Dropdown.Menu variant="dark">
                 <Dropdown.Item>{name ? name : email}</Dropdown.Item>
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={logOut}>Выйти</Dropdown.Item>
@@ -72,6 +75,9 @@ export const Header = () => {
                 Тарифные планы
               </Link> */}
             </div>
+            <Link className="btn btn-outline-warning me-3" to="/support">
+              Поддержка
+            </Link>
             <a href={import.meta.env.VITE_ASANA_LOGIN_URL} className="btn btn-primary">
               Войти через Asana
             </a>
