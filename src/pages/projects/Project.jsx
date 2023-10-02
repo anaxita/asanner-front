@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Alert, Badge, Button, Card, Form, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Alert, Button, Card, Form, OverlayTrigger, Spinner, Tooltip } from 'react-bootstrap';
 import { QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { makeHttpRequest } from '../../api/makeHttpRequest';
 import { ProjectStateFromAPI } from '../../utils/mappers';
 
+
 export const Project = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const profile = JSON.parse(localStorage.getItem('profile'));
+  // const profile = JSON.parse(localStorage.getItem('profile'));
 
   const [project, setProject] = useState({
     // Example project data
@@ -38,6 +40,7 @@ export const Project = () => {
 
   const handleSyncButtonClick = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     setErr('');
 
     const { error } = await makeHttpRequest('PUT', `/projects/${id}`, {
@@ -48,6 +51,7 @@ export const Project = () => {
     if (error) {
       setErr(error);
     } else {
+      setIsLoading(false);
       navigate('/projects');
     }
   };
@@ -59,6 +63,7 @@ export const Project = () => {
   return (
     <>
       {err && <Alert variant="danger">{err}</Alert>}
+
       <div className="d-flex justify-content-center">
         <Card className="col-xs-12" bg="secondary" text="light">
           <Card.Header as="h5">
@@ -95,7 +100,17 @@ export const Project = () => {
             </div>
 
             <div className="mt-5 gap-3 d-flex justify-content-between flex-wrap">
-              <Button variant="success" type="button" onClick={handleSyncButtonClick}>
+              <Button
+                variant="success"
+                type="button"
+                onClick={handleSyncButtonClick}
+                className="d-flex align-items-center"
+              >
+                {isLoading && (
+                  <Spinner className="me-2" animation="border" size="sm">
+                    <span className="visually-hidden">Обновление...</span>
+                  </Spinner>
+                )}
                 Синхронизировать
               </Button>
               <Button variant="danger" type="button" onClick={handleCancelButtonClick}>

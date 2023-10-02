@@ -2,7 +2,12 @@ import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
+
+
 import { makeHttpRequest } from '../api/makeHttpRequest';
+import { Footer } from './Footer';
+import { Header } from './Header';
+
 
 // OAuth component that handles the OAuth flow with Asana and redirects to the projects page when complete
 export const OAuth = () => {
@@ -29,10 +34,15 @@ export const OAuth = () => {
   }, [code]);
 
   return (
-    <div className="bg-light vh-100">
-      <Spinner animation="border" role="status">
-        <span className="visually-hidden">Авторизация...</span>
-      </Spinner>
+    <div className="vh-100 d-flex container justify-content-between flex-column">
+      <Header />
+      <div className="d-flex justify-content-center">
+        <Spinner animation="border" role="status" className="me-3">
+          <span className="visually-hidden">Авторизация...</span>
+        </Spinner>
+        <h2>Авторизация...</h2>
+      </div>
+      <Footer />
     </div>
   );
 };
