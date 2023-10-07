@@ -23,7 +23,7 @@ export const Header = () => {
     <Navbar className="justify-content-between border-bottom">
       <Container>
         <Navbar.Brand href="/projects">
-          <img src={'src/images/logo.png'} alt="logo" style={{ width: '90px', height: '60px' }} />
+          <img src={'/logo.png'} alt="logo" style={{ width: '90px', height: '60px' }} />
           Asanner
         </Navbar.Brand>
         {profile ? (
