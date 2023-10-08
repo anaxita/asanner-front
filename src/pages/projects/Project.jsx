@@ -43,7 +43,7 @@ export const Project = () => {
     setIsLoading(true);
     setErr('');
 
-    const { error } = await makeHttpRequest('PUT', `/projects/${id}`, {
+    const { error } = await makeHttpRequest('PUT', `/projects/${id}а`, {
       task_prefix: project.task_prefix,
       sync_enabled: project.sync_enabled,
     });
@@ -51,9 +51,9 @@ export const Project = () => {
     if (error) {
       setErr(error);
     } else {
-      setIsLoading(false);
       navigate('/projects');
     }
+    setIsLoading(false);
   };
 
   const handleCancelButtonClick = () => {
