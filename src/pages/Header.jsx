@@ -1,8 +1,9 @@
-import { Container, Dropdown, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { PersonCircle, PersonSquare, StarFill } from 'react-bootstrap-icons';
+import { Container, Dropdown, Navbar } from 'react-bootstrap';
+import { PersonCircle } from 'react-bootstrap-icons';
 import { Link, useNavigate } from 'react-router-dom';
 
 import './index.css';
+
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -21,7 +22,10 @@ export const Header = () => {
   return (
     <Navbar className="justify-content-between border-bottom">
       <Container>
-        <Navbar.Brand href="/projects">Asanner</Navbar.Brand>
+        <Navbar.Brand href="/projects">
+          <img src={'/logo.png'} alt="logo" style={{ width: '90px', height: '60px' }} />
+          Asanner
+        </Navbar.Brand>
         {profile ? (
           <Navbar.Collapse className="justify-content-end">
             <Link className="btn btn-outline-primary me-3" to="/projects">
