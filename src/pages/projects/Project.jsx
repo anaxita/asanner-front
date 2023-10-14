@@ -6,7 +6,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { makeHttpRequest } from '../../api/makeHttpRequest';
 import { ProjectStateFromAPI } from '../../utils/mappers';
 
-
 export const Project = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ export const Project = () => {
     setIsLoading(true);
     setErr('');
 
-    const { error } = await makeHttpRequest('PUT', `/projects/${id}а`, {
+    const { error } = await makeHttpRequest('PUT', `/projects/${id}`, {
       task_prefix: project.task_prefix,
       sync_enabled: project.sync_enabled,
     });
