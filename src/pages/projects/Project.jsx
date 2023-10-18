@@ -88,12 +88,20 @@ export const Project = () => {
                 checked={project.sync_enabled}
                 onChange={(e) => setProject({ ...project, sync_enabled: e.target.checked })}
                 type="switch"
-                label="Синрхонизировать автоматически"
+                label="Синхронизировать автоматически"
                 id="input_sync"
                 // disabled={profile.subscription.price === 0}
               />
               {/* {profile.subscription.price === 0 && <Badge bg="primary">премиум</Badge>} */}
-              <OverlayTrigger placement="top" overlay={<Tooltip>Подсказка автоматической синхронизации</Tooltip>}>
+              <OverlayTrigger
+                placement="top"
+                overlay={
+                  <Tooltip>
+                    После создания задачи, через несколько секунд к ней автоматически будет добавлен префикс и
+                    уникальный ID
+                  </Tooltip>
+                }
+              >
                 <QuestionCircle size={20} />
               </OverlayTrigger>
             </div>
