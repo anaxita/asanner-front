@@ -104,7 +104,7 @@ export const Projects = () => {
   }
 
   return (
-    <div className="">
+    <div className="overflow-scroll">
       <div className="container">
         <div className="d-flex align-items-center flex-column">
           <h1 className="title">Проекты</h1>
