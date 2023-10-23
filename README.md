@@ -1,4 +1,4 @@
-# Asanner
+# Asanner (frontend)
 
 ### Local start
 
