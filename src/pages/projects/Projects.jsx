@@ -65,6 +65,7 @@ export const Projects = () => {
         setErr(error);
       } else {
         setProjects(data);
+        setSearchProjects(data);
       }
       setIsLoading(false);
     });
@@ -75,10 +76,10 @@ export const Projects = () => {
     if (!event.target.value) {
       setSearchProjects(projects);
     } else {
-      const fiteredProjects = projects.filter((project) => {
+      const filteredProjects = projects.filter((project) => {
         return project.name.toLowerCase().includes(event.target.value.toLowerCase());
       });
-      setSearchProjects(fiteredProjects);
+      setSearchProjects(filteredProjects);
     }
   };
 
